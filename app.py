@@ -8,11 +8,10 @@ import os
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-regression_model_path = os.path.join(BASE_DIR, 'models', 'regression_model.pkl')
 classification_model_path = os.path.join(BASE_DIR, 'models', 'classification_model.pkl')
 scaler_path = os.path.join(BASE_DIR, 'models', 'scaler.pkl')
 
-regression_model = joblib.load(regression_model_path)
+
 classification_model = joblib.load(classification_model_path)
 scaler = joblib.load(scaler_path)
 datos=[]
@@ -45,8 +44,7 @@ def index():
             data = pd.DataFrame([datos],columns= ['Temperature','Pressure','Humidity','WindDirection(Degrees)','Speed','hour'])
             print(data)
             X = scaler.transform(data)
-            # Predicción de regresión
-            # prediction = regression_model.predict(X)[0]
+            
 
             # Predicción de clasificación
             class_pred = classification_model.predict(X)[0]
